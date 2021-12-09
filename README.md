@@ -1,8 +1,5 @@
 # MC2FA
-MC2FA is a **free** two-factor authentication plugin for Bukkit, Spigot & BungeeCord.
-
-## Development Build
-[![CircleCI](https://circleci.com/gh/ConnorLinfoot/MC2FA/tree/master.svg?style=svg)](https://api.connorlinfoot.com/v1/ci/artifact/MC2FA/latest/download)
+MC2FA is a **free** two-factor authentication plugin for Spigot.
 
 ## Features
 - Designed to work out of the box. Just copy the plugin into your plugins folder and restart your server.
@@ -20,5 +17,5 @@ MC2FA is a **free** two-factor authentication plugin for Bukkit, Spigot & Bungee
 - Auto-allow if on the same IP within a certain time (option)
 
 ## Requirements
-- Bukkit/Spigot 1.8+
+- Spigot/Paper 1.8+
 - Java 8+

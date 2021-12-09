@@ -5,7 +5,7 @@ import java.util.List;
 
 public abstract class MessageHandler {
     private String prefix = "&7[&bMC2FA&7]&r ";
-    private List<String> defaults = Arrays.asList(
+    private final List<String> defaults = Arrays.asList(
             "&cPlease validate your account with two-factor authentication",
             "&cThe key you entered was not valid, please try again",
             "&aYou have successfully setup two-factor authentication",

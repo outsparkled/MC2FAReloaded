@@ -21,9 +21,9 @@ import java.util.HashMap;
 import java.util.UUID;
 
 public class AuthHandler extends com.connorlinfoot.mc2fa.shared.AuthHandler {
-    private MC2FA mc2FA;
-    private ArrayList<UUID> openGUIs = new ArrayList<>();
-    private HashMap<UUID, String> currentGUIKeys = new HashMap<>();
+    private final MC2FA mc2FA;
+    private final ArrayList<UUID> openGUIs = new ArrayList<>();
+    private final HashMap<UUID, String> currentGUIKeys = new HashMap<>();
 
     public AuthHandler(MC2FA mc2FA) {
         this.mc2FA = mc2FA;
@@ -44,6 +44,7 @@ public class AuthHandler extends com.connorlinfoot.mc2fa.shared.AuthHandler {
         Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "tellraw " + player.getName() + " {\"text\":\"\",\"extra\":[{\"text\":\"%%message%%\",\"clickEvent\":{\"action\":\"open_url\",\"value\":\"%%url%%\"}}]}".replaceAll("%%message%%", message).replaceAll("%%url%%", url));
     }
 
+    @SuppressWarnings("deprecation")
     public void giveQRItem(MC2FA mc2FA, Player player) {
         String url = getQRCodeURL(mc2FA.getConfigHandler().getQrCodeURL(), player.getUniqueId());
         final MessageHandler messageHandler = mc2FA.getMessageHandler();
@@ -142,7 +143,7 @@ public class AuthHandler extends com.connorlinfoot.mc2fa.shared.AuthHandler {
         if (currentGUIKeys.containsKey(player.getUniqueId())) {
             current = currentGUIKeys.get(player.getUniqueId());
         }
-        currentGUIKeys.put(player.getUniqueId(), current + String.valueOf(num));
+        currentGUIKeys.put(player.getUniqueId(), current + num);
     }
 
     public void playerJoin(UUID uuid) {
@@ -189,10 +190,8 @@ public class AuthHandler extends com.connorlinfoot.mc2fa.shared.AuthHandler {
 
     public void playerQuit(UUID uuid) {
         super.playerQuit(uuid);
-        if (openGUIs.contains(uuid))
-            openGUIs.remove(uuid);
-        if (currentGUIKeys.containsKey(uuid))
-            currentGUIKeys.remove(uuid);
+        openGUIs.remove(uuid);
+        currentGUIKeys.remove(uuid);
     }
 
     public void changeState(UUID uuid, AuthState authState) {

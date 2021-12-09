@@ -20,7 +20,7 @@ import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.*;
 
 public class PlayerListener implements Listener {
-    private MC2FA mc2FA;
+    private final MC2FA mc2FA;
 
     public PlayerListener(MC2FA mc2FA) {
         this.mc2FA = mc2FA;
@@ -152,8 +152,8 @@ public class PlayerListener implements Listener {
     @EventHandler(priority = EventPriority.LOWEST)
     public void onCommand(PlayerCommandPreprocessEvent event) {
         if (mc2FA.getAuthHandler().needsToAuthenticate(event.getPlayer().getUniqueId())) {
+            String[] args = event.getMessage().substring(1).split("\\s+");
             if (mc2FA.getConfigHandler().isCommandsDisabled()) {
-                String[] args = event.getMessage().substring(1).split("\\s+");
                 if (args.length > 0) {
                     String command = args[0];
                     if (!mc2FA.getConfigHandler().getWhitelistedCommands().contains(command)) {
@@ -162,7 +162,6 @@ public class PlayerListener implements Listener {
                     }
                 }
             } else {
-                String[] args = event.getMessage().substring(1).split("\\s+");
                 if (args.length > 0) {
                     String command = args[0];
                     if (mc2FA.getConfigHandler().getBlacklistedCommands().contains(command)) {

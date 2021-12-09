@@ -10,7 +10,7 @@ import java.util.UUID;
 public abstract class AuthHandler {
     protected StorageHandler storageHandler;
     protected HashMap<UUID, AuthState> authStates = new HashMap<>();
-    private HashMap<UUID, String> pendingKeys = new HashMap<>();
+    private final HashMap<UUID, String> pendingKeys = new HashMap<>();
 
     public enum AuthState {
         LOADING, DISABLED, PENDING_SETUP, PENDING_LOGIN, AUTHENTICATED
@@ -95,10 +95,8 @@ public abstract class AuthHandler {
     }
 
     public void playerQuit(UUID uuid) {
-        if (pendingKeys.containsKey(uuid))
-            pendingKeys.remove(uuid);
-        if (authStates.containsKey(uuid))
-            authStates.remove(uuid);
+        pendingKeys.remove(uuid);
+        authStates.remove(uuid);
     }
 
     public StorageHandler getStorageHandler() {

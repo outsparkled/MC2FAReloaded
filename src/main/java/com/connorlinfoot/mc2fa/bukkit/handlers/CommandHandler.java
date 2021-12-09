@@ -10,7 +10,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class CommandHandler implements CommandExecutor {
-    private MC2FA mc2FA;
+    private final MC2FA mc2FA;
 
     public CommandHandler(MC2FA mc2FA) {
         this.mc2FA = mc2FA;
@@ -46,9 +46,9 @@ public class CommandHandler implements CommandExecutor {
             if (args.length == 0) {
                 messageHandler.sendMessage(player, "&cPlease validate your two-factor authentication key with /2fa <key>");
             } else {
-                Integer key;
+                int key;
                 try {
-                    key = Integer.valueOf(args[0]);
+                    key = Integer.parseInt(args[0]);
                 } catch (Exception e) {
                     messageHandler.sendMessage(player, "&cInvalid key entered");
                     return true;
@@ -67,7 +67,7 @@ public class CommandHandler implements CommandExecutor {
             }
         } else {
 
-            if (args.length == 0 || (args.length > 0 && args[0].equalsIgnoreCase("help"))) {
+            if (args.length == 0 || args[0].equalsIgnoreCase("help")) {
                 sender.sendMessage(ChatColor.AQUA + "--------------- " + ChatColor.GOLD + "MC2FA" + ChatColor.AQUA + " ---------------");
                 if (mc2FA.getAuthHandler().isEnabled(((Player) sender).getUniqueId())) {
 //                    sender.sendMessage(ChatColor.GOLD + "/2fa reset <key> " + ChatColor.YELLOW + "Disables two-factor authentication");
@@ -131,10 +131,10 @@ public class CommandHandler implements CommandExecutor {
                                 case "auth":
                                 case "authstate":
                                 case "state":
-                                    sender.sendMessage("AuthState: " + String.valueOf(mc2FA.getAuthHandler().getState(target.getUniqueId())));
+                                    sender.sendMessage("AuthState: " + mc2FA.getAuthHandler().getState(target.getUniqueId()));
                                     break;
                                 case "key":
-                                    sender.sendMessage("Key: " + String.valueOf(mc2FA.getAuthHandler().getStorageHandler().getKey(target.getUniqueId())));
+                                    sender.sendMessage("Key: " + mc2FA.getAuthHandler().getStorageHandler().getKey(target.getUniqueId()));
                                     break;
                             }
                         }

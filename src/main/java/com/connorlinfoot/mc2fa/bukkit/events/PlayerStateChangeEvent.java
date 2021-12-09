@@ -8,7 +8,7 @@ import org.bukkit.event.HandlerList;
 
 public class PlayerStateChangeEvent extends Event implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
-    private Player player;
+    private final Player player;
     private AuthHandler.AuthState authState;
     private boolean cancelled = false;
 

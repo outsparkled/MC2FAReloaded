@@ -8,9 +8,10 @@ import java.io.IOException;
 import java.util.UUID;
 
 public class FlatStorage extends StorageHandler {
-    private File file;
+    private final File file;
     private YamlConfiguration configuration;
 
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     public FlatStorage(File file) {
         this.file = file;
         try {
@@ -23,7 +24,7 @@ public class FlatStorage extends StorageHandler {
 
     public String getKey(UUID uuid) {
         if (configuration.isSet(uuid.toString() + ".Key")) {
-            return configuration.getString(uuid.toString() + ".Key");
+            return configuration.getString(uuid + ".Key");
         }
         return null;
     }

@@ -9,7 +9,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class MessageHandler extends com.connorlinfoot.mc2fa.shared.MessageHandler {
-    private MC2FA mc2FA;
+    private final MC2FA mc2FA;
     private YamlConfiguration messagesConfig;
 
     public MessageHandler(MC2FA mc2FA) {
@@ -35,6 +35,7 @@ public class MessageHandler extends com.connorlinfoot.mc2fa.shared.MessageHandle
         player.sendMessage(message);
     }
 
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     public void loadConfiguration() {
         if (!mc2FA.getDataFolder().exists()) {
             mc2FA.getDataFolder().mkdirs();
