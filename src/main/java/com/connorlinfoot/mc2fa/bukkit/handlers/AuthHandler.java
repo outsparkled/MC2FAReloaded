@@ -2,6 +2,7 @@ package com.connorlinfoot.mc2fa.bukkit.handlers;
 
 import com.connorlinfoot.mc2fa.bukkit.MC2FA;
 import com.connorlinfoot.mc2fa.bukkit.events.PlayerStateChangeEvent;
+import com.connorlinfoot.mc2fa.bukkit.gui.TFAGUIHolder;
 import com.connorlinfoot.mc2fa.bukkit.storage.FlatStorage;
 import com.connorlinfoot.mc2fa.bukkit.utils.ImageRenderer;
 import org.bukkit.Bukkit;
@@ -112,7 +113,7 @@ public class AuthHandler extends com.connorlinfoot.mc2fa.shared.AuthHandler {
                 title += " - " + currentGUIKeys.get(player.getUniqueId());
             }
         }
-        Inventory gui = Bukkit.createInventory(null, 54, title);
+        Inventory gui = Bukkit.createInventory(new TFAGUIHolder(), 54, title);
 
         int slot = 12;
         for (int i = 0; i < 10; i++) {

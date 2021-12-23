@@ -2,6 +2,7 @@ package com.connorlinfoot.mc2fa.bukkit.listeners;
 
 import com.connorlinfoot.mc2fa.bukkit.MC2FA;
 import com.connorlinfoot.mc2fa.bukkit.events.PlayerStateChangeEvent;
+import com.connorlinfoot.mc2fa.bukkit.gui.TFAGUIHolder;
 import com.connorlinfoot.mc2fa.shared.AuthHandler;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -123,7 +124,7 @@ public class PlayerListener implements Listener {
 
     @EventHandler(priority = EventPriority.LOWEST)
     public void onInventoryClick(InventoryClickEvent event) {
-        if (event.getInventory().getTitle() != null && event.getInventory().getTitle().startsWith("MC2FA") && mc2FA.getAuthHandler().needsToAuthenticate(event.getWhoClicked().getUniqueId()) && mc2FA.getAuthHandler().hasGUIOpen(event.getWhoClicked().getUniqueId())) {
+        if (event.getInventory().getHolder() instanceof TFAGUIHolder && mc2FA.getAuthHandler().needsToAuthenticate(event.getWhoClicked().getUniqueId()) && mc2FA.getAuthHandler().hasGUIOpen(event.getWhoClicked().getUniqueId())) {
             if (event.getCurrentItem() != null && event.getCurrentItem().getType() == Material.STAINED_GLASS_PANE && event.getCurrentItem().hasItemMeta() && event.getCurrentItem().getItemMeta().hasDisplayName()) {
                 int num = Integer.parseInt(ChatColor.stripColor(event.getCurrentItem().getItemMeta().getDisplayName()));
                 mc2FA.getAuthHandler().enterNumGUI((Player) event.getWhoClicked(), num);
